@@ -81,21 +81,32 @@
         }
 
         header {
-            background-color: var(--secondary-color);
+            background: linear-gradient(rgba(139, 69, 19, 0.7), rgba(139, 69, 19, 0.9)), 
+                        url('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
             color: var(--white);
-            padding: 15px 0;
+            padding: 25px 0;
             text-align: center;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
         }
 
         header h1 {
             font-size: 1.8rem;
             margin-bottom: 5px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
         }
 
         header p {
             font-size: 0.9rem;
             opacity: 0.9;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
 
         .container {
@@ -126,6 +137,8 @@
             align-items: center;
             justify-content: center;
             height: 100%;
+            position: relative;
+            overflow: hidden;
         }
 
         .icon-card:hover {
@@ -139,11 +152,25 @@
             font-size: 2.5rem;
             margin-bottom: 15px;
             color: var(--secondary-color);
+            position: relative;
+            z-index: 2;
         }
 
         .icon-card:hover i {
             color: var(--white);
             animation: bounce 0.5s;
+        }
+
+        .icon-card .card-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2;
+            z-index: 1;
         }
 
         @keyframes bounce {
@@ -154,6 +181,8 @@
         .icon-card h3 {
             font-size: 1.1rem;
             margin-bottom: 5px;
+            position: relative;
+            z-index: 2;
         }
 
         .content-page {
@@ -210,12 +239,27 @@
             margin-bottom: 15px;
             padding-bottom: 15px;
             border-bottom: 1px dashed var(--light-color);
+            display: flex;
+            align-items: center;
         }
 
         .vocabulary-item:last-child {
             border-bottom: none;
             margin-bottom: 0;
             padding-bottom: 0;
+        }
+
+        .vocabulary-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+            border: 2px solid var(--primary-color);
+        }
+
+        .vocabulary-text {
+            flex: 1;
         }
 
         .vocabulary-item p {
@@ -307,12 +351,16 @@
             header h1 {
                 font-size: 1.5rem;
             }
-        }
-
-        /* Font Awesome icons (simulated) */
-        .icon {
-            font-family: Arial, sans-serif;
-            font-weight: bold;
+            
+            .vocabulary-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .vocabulary-image {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
         }
     </style>
 </head>
@@ -327,8 +375,10 @@
     <!-- Main App Content -->
     <div id="appContent" style="display: none;">
         <header>
-            <h1>Learn Turkana</h1>
-            <p>Discover the language of the Turkana people</p>
+            <div class="header-content">
+                <h1>Learn Turkana</h1>
+                <p>Discover the language of the Turkana people</p>
+            </div>
         </header>
 
         <div class="container">
@@ -336,51 +386,61 @@
             <div id="homePage">
                 <div class="icon-grid">
                     <div class="icon-card" onclick="showContent('greetings')">
+                        <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1580130732478-4d339bf5d39d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
                         <div class="icon">👋</div>
                         <h3>Greetings</h3>
                         <p>Learn common greetings</p>
                     </div>
                     <div class="icon-card" onclick="showContent('etiquette')">
+                        <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1557200134-90327ee9fafa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
                         <div class="icon">🙏</div>
                         <h3>Etiquette</h3>
                         <p>Cultural norms and manners</p>
                     </div>
                     <div class="icon-card" onclick="showContent('numbers')">
+                        <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
                         <div class="icon">🔢</div>
                         <h3>Turkana Numbers</h3>
                         <p>Counting in Turkana</p>
                     </div>
                     <div class="icon-card" onclick="showContent('food')">
+                        <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
                         <div class="icon">🍲</div>
                         <h3>Food & Drinks</h3>
                         <p>Vocabulary for meals</p>
                     </div>
                     <div class="icon-card" onclick="showContent('finance')">
+                        <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
                         <div class="icon">💵</div>
                         <h3>Finance</h3>
                         <p>Money and transactions</p>
                     </div>
                     <div class="icon-card" onclick="showContent('phrases')">
+                        <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1541178735493-479c1a27ed24?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80');"></div>
                         <div class="icon">💬</div>
                         <h3>Useful Phrases</h3>
                         <p>Common expressions</p>
                     </div>
                     <div class="icon-card" onclick="showContent('time')">
+                        <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
                         <div class="icon">⏰</div>
                         <h3>Time</h3>
                         <p>Telling time in Turkana</p>
                     </div>
                     <div class="icon-card" onclick="showContent('location')">
+                        <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
                         <div class="icon">📍</div>
                         <h3>Location</h3>
                         <p>Directions and places</p>
                     </div>
                     <div class="icon-card" onclick="showContent('classroom')">
+                        <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
                         <div class="icon">🏫</div>
                         <h3>Classroom</h3>
                         <p>School-related words</p>
                     </div>
                     <div class="icon-card" onclick="showContent('radio')">
+                        <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
                         <div class="icon">📻</div>
                         <h3>Turkana Radio</h3>
                         <p>Listen to Turkana broadcasts</p>
@@ -396,44 +456,52 @@
                 </div>
                 <div class="vocabulary-list">
                     <div class="vocabulary-item">
-                        <p class="turkana-word">Ejoka</p>
-                        <p class="english-word">Hello (general greeting)</p>
-                        <p class="pronunciation">eh-JOH-kah</p>
+                        <img src="https://images.unsplash.com/photo-1580130732478-4d339bf5d39d?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana greeting" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Ejoka</p>
+                            <p class="english-word">Hello (general greeting)</p>
+                            <p class="pronunciation">eh-JOH-kah</p>
+                        </div>
                     </div>
                     <div class="vocabulary-item">
-                        <p class="turkana-word">Ejok noi</p>
-                        <p class="english-word">Hello (to a group)</p>
-                        <p class="pronunciation">eh-JOHK noy</p>
+                        <img src="https://images.unsplash.com/photo-1557200134-90327ee9fafa?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana people" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Ejok noi</p>
+                            <p class="english-word">Hello (to a group)</p>
+                            <p class="pronunciation">eh-JOHK noy</p>
+                        </div>
                     </div>
                     <div class="vocabulary-item">
-                        <p class="turkana-word">Eyalama</p>
-                        <p class="english-word">Good morning</p>
-                        <p class="pronunciation">eh-yah-LAH-mah</p>
+                        <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana elder" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Eyalama</p>
+                            <p class="english-word">Good morning</p>
+                            <p class="pronunciation">eh-yah-LAH-mah</p>
+                        </div>
                     </div>
                     <div class="vocabulary-item">
-                        <p class="turkana-word">Epesi</p>
-                        <p class="english-word">Good afternoon</p>
-                        <p class="pronunciation">eh-PEH-see</p>
+                        <img src="https://images.unsplash.com/photo-1541178735493-479c1a27ed24?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana woman" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Epesi</p>
+                            <p class="english-word">Good afternoon</p>
+                            <p class="pronunciation">eh-PEH-see</p>
+                        </div>
                     </div>
                     <div class="vocabulary-item">
-                        <p class="turkana-word">Ekaru</p>
-                        <p class="english-word">Good evening</p>
-                        <p class="pronunciation">eh-KAH-roo</p>
+                        <img src="https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana man" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Ekaru</p>
+                            <p class="english-word">Good evening</p>
+                            <p class="pronunciation">eh-KAH-roo</p>
+                        </div>
                     </div>
                     <div class="vocabulary-item">
-                        <p class="turkana-word">Erotu</p>
-                        <p class="english-word">Good night</p>
-                        <p class="pronunciation">eh-ROH-too</p>
-                    </div>
-                    <div class="vocabulary-item">
-                        <p class="turkana-word">Eyo</p>
-                        <p class="english-word">Yes</p>
-                        <p class="pronunciation">EH-yoh</p>
-                    </div>
-                    <div class="vocabulary-item">
-                        <p class="turkana-word">Apei</p>
-                        <p class="english-word">No</p>
-                        <p class="pronunciation">AH-pay</p>
+                        <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana child" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Erotu</p>
+                            <p class="english-word">Good night</p>
+                            <p class="pronunciation">eh-ROH-too</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -445,39 +513,36 @@
                 </div>
                 <div class="vocabulary-list">
                     <div class="vocabulary-item">
-                        <p class="turkana-word">Asante</p>
-                        <p class="english-word">Thank you</p>
-                        <p class="pronunciation">ah-SAHN-teh</p>
+                        <img src="https://images.unsplash.com/photo-1580130732478-4d339bf5d39d?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana greeting" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Asante</p>
+                            <p class="english-word">Thank you</p>
+                            <p class="pronunciation">ah-SAHN-teh</p>
+                        </div>
                     </div>
                     <div class="vocabulary-item">
-                        <p class="turkana-word">Eyalama noton</p>
-                        <p class="english-word">Please</p>
-                        <p class="pronunciation">eh-yah-LAH-mah NOH-ton</p>
+                        <img src="https://images.unsplash.com/photo-1557200134-90327ee9fafa?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana people" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Eyalama noton</p>
+                            <p class="english-word">Please</p>
+                            <p class="pronunciation">eh-yah-LAH-mah NOH-ton</p>
+                        </div>
                     </div>
                     <div class="vocabulary-item">
-                        <p class="turkana-word">Akiru</p>
-                        <p class="english-word">Excuse me</p>
-                        <p class="pronunciation">ah-KEE-roo</p>
+                        <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana elder" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Akiru</p>
+                            <p class="english-word">Excuse me</p>
+                            <p class="pronunciation">ah-KEE-roo</p>
+                        </div>
                     </div>
                     <div class="vocabulary-item">
-                        <p class="turkana-word">Eyo, ng'ikitoi</p>
-                        <p class="english-word">Yes, please</p>
-                        <p class="pronunciation">EH-yoh, ngee-KEE-toy</p>
-                    </div>
-                    <div class="vocabulary-item">
-                        <p class="turkana-word">Apei, asante</p>
-                        <p class="english-word">No, thank you</p>
-                        <p class="pronunciation">AH-pay, ah-SAHN-teh</p>
-                    </div>
-                    <div class="vocabulary-item">
-                        <p class="turkana-word">Eitungana</p>
-                        <p class="english-word">Welcome</p>
-                        <p class="pronunciation">eh-ee-too-GAH-nah</p>
-                    </div>
-                    <div class="vocabulary-item">
-                        <p class="turkana-word">Echam</p>
-                        <p class="english-word">Sorry</p>
-                        <p class="pronunciation">EH-chahm</p>
+                        <img src="https://images.unsplash.com/photo-1541178735493-479c1a27ed24?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana woman" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Eyo, ng'ikitoi</p>
+                            <p class="english-word">Yes, please</p>
+                            <p class="pronunciation">EH-yoh, ngee-KEE-toy</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -489,54 +554,36 @@
                 </div>
                 <div class="vocabulary-list">
                     <div class="vocabulary-item">
-                        <p class="turkana-word">Apei</p>
-                        <p class="english-word">One</p>
-                        <p class="pronunciation">AH-pay</p>
+                        <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana elder" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Apei</p>
+                            <p class="english-word">One</p>
+                            <p class="pronunciation">AH-pay</p>
+                        </div>
                     </div>
                     <div class="vocabulary-item">
-                        <p class="turkana-word">Auni</p>
-                        <p class="english-word">Two</p>
-                        <p class="pronunciation">AH-oo-nee</p>
+                        <img src="https://images.unsplash.com/photo-1541178735493-479c1a27ed24?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana woman" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Auni</p>
+                            <p class="english-word">Two</p>
+                            <p class="pronunciation">AH-oo-nee</p>
+                        </div>
                     </div>
                     <div class="vocabulary-item">
-                        <p class="turkana-word">Auniom</p>
-                        <p class="english-word">Three</p>
-                        <p class="pronunciation">ah-oo-nee-OM</p>
+                        <img src="https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana man" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Auniom</p>
+                            <p class="english-word">Three</p>
+                            <p class="pronunciation">ah-oo-nee-OM</p>
+                        </div>
                     </div>
                     <div class="vocabulary-item">
-                        <p class="turkana-word">Ang'wan</p>
-                        <p class="english-word">Four</p>
-                        <p class="pronunciation">AHNG-wahn</p>
-                    </div>
-                    <div class="vocabulary-item">
-                        <p class="turkana-word">Miet</p>
-                        <p class="english-word">Five</p>
-                        <p class="pronunciation">mee-ET</p>
-                    </div>
-                    <div class="vocabulary-item">
-                        <p class="turkana-word">Miet apei</p>
-                        <p class="english-word">Six (five plus one)</p>
-                        <p class="pronunciation">mee-ET AH-pay</p>
-                    </div>
-                    <div class="vocabulary-item">
-                        <p class="turkana-word">Miet auni</p>
-                        <p class="english-word">Seven</p>
-                        <p class="pronunciation">mee-ET AH-oo-nee</p>
-                    </div>
-                    <div class="vocabulary-item">
-                        <p class="turkana-word">Miet auniom</p>
-                        <p class="english-word">Eight</p>
-                        <p class="pronunciation">mee-ET ah-oo-nee-OM</p>
-                    </div>
-                    <div class="vocabulary-item">
-                        <p class="turkana-word">Miet ang'wan</p>
-                        <p class="english-word">Nine</p>
-                        <p class="pronunciation">mee-ET AHNG-wahn</p>
-                    </div>
-                    <div class="vocabulary-item">
-                        <p class="turkana-word">Tomon</p>
-                        <p class="english-word">Ten</p>
-                        <p class="pronunciation">TOH-mon</p>
+                        <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana child" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Ang'wan</p>
+                            <p class="english-word">Four</p>
+                            <p class="pronunciation">AHNG-wahn</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -548,39 +595,28 @@
                 </div>
                 <div class="vocabulary-list">
                     <div class="vocabulary-item">
-                        <p class="turkana-word">Akipi</p>
-                        <p class="english-word">Food</p>
-                        <p class="pronunciation">ah-KEE-pee</p>
+                        <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana food" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Akipi</p>
+                            <p class="english-word">Food</p>
+                            <p class="pronunciation">ah-KEE-pee</p>
+                        </div>
                     </div>
                     <div class="vocabulary-item">
-                        <p class="turkana-word">Ng'akipi</p>
-                        <p class="english-word">Meat</p>
-                        <p class="pronunciation">ngah-KEE-pee</p>
+                        <img src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana meal" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Ng'akipi</p>
+                            <p class="english-word">Meat</p>
+                            <p class="pronunciation">ngah-KEE-pee</p>
+                        </div>
                     </div>
                     <div class="vocabulary-item">
-                        <p class="turkana-word">Echuna</p>
-                        <p class="english-word">Milk</p>
-                        <p class="pronunciation">eh-CHOO-nah</p>
-                    </div>
-                    <div class="vocabulary-item">
-                        <p class="turkana-word">Akipi ka ng'ikitoi</p>
-                        <p class="english-word">Delicious food</p>
-                        <p class="pronunciation">ah-KEE-pee kah ngee-KEE-toy</p>
-                    </div>
-                    <div class="vocabulary-item">
-                        <p class="turkana-word">Akipi ka echam</p>
-                        <p class="english-word">Spicy food</p>
-                        <p class="pronunciation">ah-KEE-pee kah EH-chahm</p>
-                    </div>
-                    <div class="vocabulary-item">
-                        <p class="turkana-word">Akipi ka echuku</p>
-                        <p class="english-word">Sweet food</p>
-                        <p class="pronunciation">ah-KEE-pee kah eh-CHOO-koo</p>
-                    </div>
-                    <div class="vocabulary-item">
-                        <p class="turkana-word">Akipi ka echuku</p>
-                        <p class="english-word">Water</p>
-                        <p class="pronunciation">eh-KEE-pee</p>
+                        <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana drink" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Echuna</p>
+                            <p class="english-word">Milk</p>
+                            <p class="pronunciation">eh-CHOO-nah</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -592,39 +628,20 @@
                 </div>
                 <div class="vocabulary-list">
                     <div class="vocabulary-item">
-                        <p class="turkana-word">Chent</p>
-                        <p class="english-word">Money</p>
-                        <p class="pronunciation">chent</p>
+                        <img src="https://images.unsplash.com/photo-1557200134-90327ee9fafa?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana market" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Chent</p>
+                            <p class="english-word">Money</p>
+                            <p class="pronunciation">chent</p>
+                        </div>
                     </div>
                     <div class="vocabulary-item">
-                        <p class="turkana-word">Ache</p>
-                        <p class="english-word">Price</p>
-                        <p class="pronunciation">AH-cheh</p>
-                    </div>
-                    <div class="vocabulary-item">
-                        <p class="turkana-word">Ache noi?</p>
-                        <p class="english-word">How much?</p>
-                        <p class="pronunciation">AH-cheh noy</p>
-                    </div>
-                    <div class="vocabulary-item">
-                        <p class="turkana-word">Echuku</p>
-                        <p class="english-word">Expensive</p>
-                        <p class="pronunciation">eh-CHOO-koo</p>
-                    </div>
-                    <div class="vocabulary-item">
-                        <p class="turkana-word">Echam</p>
-                        <p class="english-word">Cheap</p>
-                        <p class="pronunciation">EH-chahm</p>
-                    </div>
-                    <div class="vocabulary-item">
-                        <p class="turkana-word">Akiru</p>
-                        <p class="english-word">Buy</p>
-                        <p class="pronunciation">ah-KEE-roo</p>
-                    </div>
-                    <div class="vocabulary-item">
-                        <p class="turkana-word">Akiru noi</p>
-                        <p class="english-word">Sell</p>
-                        <p class="pronunciation">ah-KEE-roo noy</p>
+                        <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana elder" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Ache</p>
+                            <p class="english-word">Price</p>
+                            <p class="pronunciation">AH-cheh</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -636,39 +653,20 @@
                 </div>
                 <div class="vocabulary-list">
                     <div class="vocabulary-item">
-                        <p class="turkana-word">Kaale noi?</p>
-                        <p class="english-word">How are you?</p>
-                        <p class="pronunciation">KAH-leh noy</p>
+                        <img src="https://images.unsplash.com/photo-1580130732478-4d339bf5d39d?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana greeting" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Kaale noi?</p>
+                            <p class="english-word">How are you?</p>
+                            <p class="pronunciation">KAH-leh noy</p>
+                        </div>
                     </div>
                     <div class="vocabulary-item">
-                        <p class="turkana-word">Eyo, kaale</p>
-                        <p class="english-word">I'm fine</p>
-                        <p class="pronunciation">EH-yoh, KAH-leh</p>
-                    </div>
-                    <div class="vocabulary-item">
-                        <p class="turkana-word">Apei, kaale noi</p>
-                        <p class="english-word">I'm not fine</p>
-                        <p class="pronunciation">AH-pay, KAH-leh noy</p>
-                    </div>
-                    <div class="vocabulary-item">
-                        <p class="turkana-word">Ng'ikitoi noi?</p>
-                        <p class="english-word">What is your name?</p>
-                        <p class="pronunciation">ngee-KEE-toy noy</p>
-                    </div>
-                    <div class="vocabulary-item">
-                        <p class="turkana-word">Eitungana noi</p>
-                        <p class="english-word">My name is...</p>
-                        <p class="pronunciation">eh-ee-too-GAH-nah noy</p>
-                    </div>
-                    <div class="vocabulary-item">
-                        <p class="turkana-word">Echuku noi?</p>
-                        <p class="english-word">Where are you going?</p>
-                        <p class="pronunciation">eh-CHOO-koo noy</p>
-                    </div>
-                    <div class="vocabulary-item">
-                        <p class="turkana-word">Echuku noi, asante</p>
-                        <p class="english-word">I'm going home, thank you</p>
-                        <p class="pronunciation">eh-CHOO-koo noy, ah-SAHN-teh</p>
+                        <img src="https://images.unsplash.com/photo-1557200134-90327ee9fafa?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana people" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Eyo, kaale</p>
+                            <p class="english-word">I'm fine</p>
+                            <p class="pronunciation">EH-yoh, KAH-leh</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -680,44 +678,20 @@
                 </div>
                 <div class="vocabulary-list">
                     <div class="vocabulary-item">
-                        <p class="turkana-word">Ekaru</p>
-                        <p class="english-word">Day</p>
-                        <p class="pronunciation">eh-KAH-roo</p>
+                        <img src="https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana man" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Ekaru</p>
+                            <p class="english-word">Day</p>
+                            <p class="pronunciation">eh-KAH-roo</p>
+                        </div>
                     </div>
                     <div class="vocabulary-item">
-                        <p class="turkana-word">Erotu</p>
-                        <p class="english-word">Night</p>
-                        <p class="pronunciation">eh-ROH-too</p>
-                    </div>
-                    <div class="vocabulary-item">
-                        <p class="turkana-word">Eyalama</p>
-                        <p class="english-word">Morning</p>
-                        <p class="pronunciation">eh-yah-LAH-mah</p>
-                    </div>
-                    <div class="vocabulary-item">
-                        <p class="turkana-word">Epesi</p>
-                        <p class="english-word">Afternoon</p>
-                        <p class="pronunciation">eh-PEH-see</p>
-                    </div>
-                    <div class="vocabulary-item">
-                        <p class="turkana-word">Ekaru noi</p>
-                        <p class="english-word">Evening</p>
-                        <p class="pronunciation">eh-KAH-roo noy</p>
-                    </div>
-                    <div class="vocabulary-item">
-                        <p class="turkana-word">Erotu noi</p>
-                        <p class="english-word">Midnight</p>
-                        <p class="pronunciation">eh-ROH-too noy</p>
-                    </div>
-                    <div class="vocabulary-item">
-                        <p class="turkana-word">Ekaru ka apei</p>
-                        <p class="english-word">Today</p>
-                        <p class="pronunciation">eh-KAH-roo kah AH-pay</p>
-                    </div>
-                    <div class="vocabulary-item">
-                        <p class="turkana-word">Ekaru ka auni</p>
-                        <p class="english-word">Tomorrow</p>
-                        <p class="pronunciation">eh-KAH-roo kah AH-oo-nee</p>
+                        <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana child" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Erotu</p>
+                            <p class="english-word">Night</p>
+                            <p class="pronunciation">eh-ROH-too</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -729,39 +703,20 @@
                 </div>
                 <div class="vocabulary-list">
                     <div class="vocabulary-item">
-                        <p class="turkana-word">Echuku</p>
-                        <p class="english-word">Here</p>
-                        <p class="pronunciation">eh-CHOO-koo</p>
+                        <img src="https://images.unsplash.com/photo-1580130732478-4d339bf5d39d?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana greeting" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Echuku</p>
+                            <p class="english-word">Here</p>
+                            <p class="pronunciation">eh-CHOO-koo</p>
+                        </div>
                     </div>
                     <div class="vocabulary-item">
-                        <p class="turkana-word">Echuku noi</p>
-                        <p class="english-word">There</p>
-                        <p class="pronunciation">eh-CHOO-koo noy</p>
-                    </div>
-                    <div class="vocabulary-item">
-                        <p class="turkana-word">Echuku ka apei</p>
-                        <p class="english-word">Near</p>
-                        <p class="pronunciation">eh-CHOO-koo kah AH-pay</p>
-                    </div>
-                    <div class="vocabulary-item">
-                        <p class="turkana-word">Echuku ka auni</p>
-                        <p class="english-word">Far</p>
-                        <p class="pronunciation">eh-CHOO-koo kah AH-oo-nee</p>
-                    </div>
-                    <div class="vocabulary-item">
-                        <p class="turkana-word">Echuku ka auniom</p>
-                        <p class="english-word">Left</p>
-                        <p class="pronunciation">eh-CHOO-koo kah ah-oo-nee-OM</p>
-                    </div>
-                    <div class="vocabulary-item">
-                        <p class="turkana-word">Echuku ka ang'wan</p>
-                        <p class="english-word">Right</p>
-                        <p class="pronunciation">eh-CHOO-koo kah AHNG-wahn</p>
-                    </div>
-                    <div class="vocabulary-item">
-                        <p class="turkana-word">Echuku ka miet</p>
-                        <p class="english-word">Straight</p>
-                        <p class="pronunciation">eh-CHOO-koo kah mee-ET</p>
+                        <img src="https://images.unsplash.com/photo-1557200134-90327ee9fafa?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana people" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Echuku noi</p>
+                            <p class="english-word">There</p>
+                            <p class="pronunciation">eh-CHOO-koo noy</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -773,39 +728,20 @@
                 </div>
                 <div class="vocabulary-list">
                     <div class="vocabulary-item">
-                        <p class="turkana-word">Ekaru ka ng'ikitoi</p>
-                        <p class="english-word">School</p>
-                        <p class="pronunciation">eh-KAH-roo kah ngee-KEE-toy</p>
+                        <img src="https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana school" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Ekaru ka ng'ikitoi</p>
+                            <p class="english-word">School</p>
+                            <p class="pronunciation">eh-KAH-roo kah ngee-KEE-toy</p>
+                        </div>
                     </div>
                     <div class="vocabulary-item">
-                        <p class="turkana-word">Ekaru ka ng'ikitoi noi</p>
-                        <p class="english-word">Teacher</p>
-                        <p class="pronunciation">eh-KAH-roo kah ngee-KEE-toy noy</p>
-                    </div>
-                    <div class="vocabulary-item">
-                        <p class="turkana-word">Ekaru ka ng'ikitoi ka apei</p>
-                        <p class="english-word">Student</p>
-                        <p class="pronunciation">eh-KAH-roo kah ngee-KEE-toy kah AH-pay</p>
-                    </div>
-                    <div class="vocabulary-item">
-                        <p class="turkana-word">Ekaru ka ng'ikitoi ka auni</p>
-                        <p class="english-word">Book</p>
-                        <p class="pronunciation">eh-KAH-roo kah ngee-KEE-toy kah AH-oo-nee</p>
-                    </div>
-                    <div class="vocabulary-item">
-                        <p class="turkana-word">Ekaru ka ng'ikitoi ka auniom</p>
-                        <p class="english-word">Pen</p>
-                        <p class="pronunciation">eh-KAH-roo kah ngee-KEE-toy kah ah-oo-nee-OM</p>
-                    </div>
-                    <div class="vocabulary-item">
-                        <p class="turkana-word">Ekaru ka ng'ikitoi ka ang'wan</p>
-                        <p class="english-word">Pencil</p>
-                        <p class="pronunciation">eh-KAH-roo kah ngee-KEE-toy kah AHNG-wahn</p>
-                    </div>
-                    <div class="vocabulary-item">
-                        <p class="turkana-word">Ekaru ka ng'ikitoi ka miet</p>
-                        <p class="english-word">Paper</p>
-                        <p class="pronunciation">eh-KAH-roo kah ngee-KEE-toy kah mee-ET</p>
+                        <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana elder" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Ekaru ka ng'ikitoi noi</p>
+                            <p class="english-word">Teacher</p>
+                            <p class="pronunciation">eh-KAH-roo kah ngee-KEE-toy noy</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -816,6 +752,7 @@
                     <h2>Turkana Radio</h2>
                 </div>
                 <div class="radio-player">
+                    <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Turkana radio" style="width: 100%; border-radius: 10px; margin-bottom: 15px;">
                     <h3>Listen to Turkana Radio</h3>
                     <p>Tune in to hear Turkana language broadcasts, music, and news</p>
                     <div class="radio-controls">
