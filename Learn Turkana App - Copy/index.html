@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Turkana</title>
+    <style>
+        :root {
+            --primary-color: #FFA500;
+            --secondary-color: #8B4513;
+            --accent-color: #D2691E;
+            --light-color: #F5DEB3;
+            --dark-color: #5D4037;
+            --text-color: #333;
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .welcome-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(139, 69, 19, 0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            color: var(--white);
+            text-align: center;
+            padding: 20px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .welcome-overlay h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .welcome-overlay p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .welcome-overlay button {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .welcome-overlay button:hover {
+            background-color: var(--accent-color);
+            transform: scale(1.05);
+        }
+
+        header {
+            background: linear-gradient(rgba(139, 69, 19, 0.7), rgba(139, 69, 19, 0.9)), 
+                        url('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            padding: 25px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        header p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .container {
+            flex: 1;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .icon-card {
+            background-color: var(--white);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .icon-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .icon-card i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+            position: relative;
+            z-index: 2;
+        }
+
+        .icon-card:hover i {
+            color: var(--white);
+            animation: bounce 0.5s;
+        }
+
+        .icon-card .card-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2;
+            z-index: 1;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .icon-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .content-page {
+            display: none;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .page-header h2 {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+        }
+
+        .back-button {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: var(--accent-color);
+            transform: scale(1.1);
+        }
+
+        .vocabulary-list {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .vocabulary-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed var(--light-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .vocabulary-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .vocabulary-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+            border: 2px solid var(--primary-color);
+        }
+
+        .vocabulary-text {
+            flex: 1;
+        }
+
+        .vocabulary-item p {
+            margin-bottom: 5px;
+            font-size: 1rem;
+        }
+
+        .turkana-word {
+            font-weight: bold;
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+        }
+
+        .english-word {
+            color: var(--dark-color);
+        }
+
+        .pronunciation {
+            font-style: italic;
+            color: var(--accent-color);
+            font-size: 0.9rem;
+        }
+
+        footer {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 15px 0;
+            font-size: 0.9rem;
+            margin-top: auto;
+        }
+
+        .radio-player {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .radio-player h3 {
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+
+        .radio-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .radio-button {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .radio-button:hover {
+            background-color: var(--accent-color);
+            transform: scale(1.1);
+        }
+
+        .radio-button i {
+            font-size: 1.5rem;
+        }
+
+        .volume-control {
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .icon-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .vocabulary-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .vocabulary-image {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Welcome Overlay -->
+    <div class="welcome-overlay" id="welcomeOverlay">
+        <h1 id="welcomeMessage">Welcome to Learn Turkana!</h1>
+        <p id="welcomeSubtext">Start your journey to learn the beautiful Turkana language</p>
+        <button id="startButton">Let's Begin</button>
+    </div>
+
+    <!-- Main App Content -->
+    <div id="appContent" style="display: none;">
+        <header>
+            <div class="header-content">
+                <h1>Learn Turkana</h1>
+                <p>Discover the language of the Turkana people</p>
+            </div>
+        </header>
+
+        <div class="container">
+            <!-- Home Page -->
+            <div id="homePage">
+                <div class="icon-grid">
+                    <div class="icon-card" onclick="showContent('greetings')">
+                        <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1580130732478-4d339bf5d39d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                        <div class="icon">👋</div>
+                        <h3>Greetings</h3>
+                        <p>Learn common greetings</p>
+                    </div>
+                    <div class="icon-card" onclick="showContent('etiquette')">
+                        <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1557200134-90327ee9fafa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                        <div class="icon">🙏</div>
+                        <h3>Etiquette</h3>
+                        <p>Cultural norms and manners</p>
+                    </div>
+                    <div class="icon-card" onclick="showContent('numbers')">
+                        <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                        <div class="icon">🔢</div>
+                        <h3>Turkana Numbers</h3>
+                        <p>Counting in Turkana</p>
+                    </div>
+                    <div class="icon-card" onclick="showContent('food')">
+                        <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                        <div class="icon">🍲</div>
+                        <h3>Food & Drinks</h3>
+                        <p>Vocabulary for meals</p>
+                    </div>
+                    <div class="icon-card" onclick="showContent('finance')">
+                        <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                        <div class="icon">💵</div>
+                        <h3>Finance</h3>
+                        <p>Money and transactions</p>
+                    </div>
+                    <div class="icon-card" onclick="showContent('phrases')">
+                        <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1541178735493-479c1a27ed24?ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80');"></div>
+                        <div class="icon">💬</div>
+                        <h3>Useful Phrases</h3>
+                        <p>Common expressions</p>
+                    </div>
+                    <div class="icon-card" onclick="showContent('time')">
+                        <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                        <div class="icon">⏰</div>
+                        <h3>Time</h3>
+                        <p>Telling time in Turkana</p>
+                    </div>
+                    <div class="icon-card" onclick="showContent('location')">
+                        <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                        <div class="icon">📍</div>
+                        <h3>Location</h3>
+                        <p>Directions and places</p>
+                    </div>
+                    <div class="icon-card" onclick="showContent('classroom')">
+                        <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                        <div class="icon">🏫</div>
+                        <h3>Classroom</h3>
+                        <p>School-related words</p>
+                    </div>
+                    <div class="icon-card" onclick="showContent('radio')">
+                        <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                        <div class="icon">📻</div>
+                        <h3>Turkana Radio</h3>
+                        <p>Listen to Turkana broadcasts</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Pages -->
+            <div id="greetingsPage" class="content-page">
+                <div class="page-header">
+                    <button class="back-button" onclick="goBack()">←</button>
+                    <h2>Greetings</h2>
+                </div>
+                <div class="vocabulary-list">
+                    <div class="vocabulary-item">
+                        <img src="https://images.unsplash.com/photo-1580130732478-4d339bf5d39d?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana greeting" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Ejoka</p>
+                            <p class="english-word">Hello (general greeting)</p>
+                            <p class="pronunciation">eh-JOH-kah</p>
+                        </div>
+                    </div>
+                    <div class="vocabulary-item">
+                        <img src="https://images.unsplash.com/photo-1557200134-90327ee9fafa?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana people" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Ejok noi</p>
+                            <p class="english-word">Hello (to a group)</p>
+                            <p class="pronunciation">eh-JOHK noy</p>
+                        </div>
+                    </div>
+                    <div class="vocabulary-item">
+                        <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana elder" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Eyalama</p>
+                            <p class="english-word">Good morning</p>
+                            <p class="pronunciation">eh-yah-LAH-mah</p>
+                        </div>
+                    </div>
+                    <div class="vocabulary-item">
+                        <img src="https://images.unsplash.com/photo-1541178735493-479c1a27ed24?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana woman" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Epesi</p>
+                            <p class="english-word">Good afternoon</p>
+                            <p class="pronunciation">eh-PEH-see</p>
+                        </div>
+                    </div>
+                    <div class="vocabulary-item">
+                        <img src="https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana man" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Ekaru</p>
+                            <p class="english-word">Good evening</p>
+                            <p class="pronunciation">eh-KAH-roo</p>
+                        </div>
+                    </div>
+                    <div class="vocabulary-item">
+                        <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana child" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Erotu</p>
+                            <p class="english-word">Good night</p>
+                            <p class="pronunciation">eh-ROH-too</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="etiquettePage" class="content-page">
+                <div class="page-header">
+                    <button class="back-button" onclick="goBack()">←</button>
+                    <h2>Etiquette</h2>
+                </div>
+                <div class="vocabulary-list">
+                    <div class="vocabulary-item">
+                        <img src="https://images.unsplash.com/photo-1580130732478-4d339bf5d39d?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana greeting" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Asante</p>
+                            <p class="english-word">Thank you</p>
+                            <p class="pronunciation">ah-SAHN-teh</p>
+                        </div>
+                    </div>
+                    <div class="vocabulary-item">
+                        <img src="https://images.unsplash.com/photo-1557200134-90327ee9fafa?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana people" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Eyalama noton</p>
+                            <p class="english-word">Please</p>
+                            <p class="pronunciation">eh-yah-LAH-mah NOH-ton</p>
+                        </div>
+                    </div>
+                    <div class="vocabulary-item">
+                        <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana elder" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Akiru</p>
+                            <p class="english-word">Excuse me</p>
+                            <p class="pronunciation">ah-KEE-roo</p>
+                        </div>
+                    </div>
+                    <div class="vocabulary-item">
+                        <img src="https://images.unsplash.com/photo-1541178735493-479c1a27ed24?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana woman" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Eyo, ng'ikitoi</p>
+                            <p class="english-word">Yes, please</p>
+                            <p class="pronunciation">EH-yoh, ngee-KEE-toy</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="numbersPage" class="content-page">
+                <div class="page-header">
+                    <button class="back-button" onclick="goBack()">←</button>
+                    <h2>Turkana Numbers</h2>
+                </div>
+                <div class="vocabulary-list">
+                    <div class="vocabulary-item">
+                        <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana elder" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Apei</p>
+                            <p class="english-word">One</p>
+                            <p class="pronunciation">AH-pay</p>
+                        </div>
+                    </div>
+                    <div class="vocabulary-item">
+                        <img src="https://images.unsplash.com/photo-1541178735493-479c1a27ed24?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana woman" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Auni</p>
+                            <p class="english-word">Two</p>
+                            <p class="pronunciation">AH-oo-nee</p>
+                        </div>
+                    </div>
+                    <div class="vocabulary-item">
+                        <img src="https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana man" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Auniom</p>
+                            <p class="english-word">Three</p>
+                            <p class="pronunciation">ah-oo-nee-OM</p>
+                        </div>
+                    </div>
+                    <div class="vocabulary-item">
+                        <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana child" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Ang'wan</p>
+                            <p class="english-word">Four</p>
+                            <p class="pronunciation">AHNG-wahn</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="foodPage" class="content-page">
+                <div class="page-header">
+                    <button class="back-button" onclick="goBack()">←</button>
+                    <h2>Food & Drinks</h2>
+                </div>
+                <div class="vocabulary-list">
+                    <div class="vocabulary-item">
+                        <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana food" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Akipi</p>
+                            <p class="english-word">Food</p>
+                            <p class="pronunciation">ah-KEE-pee</p>
+                        </div>
+                    </div>
+                    <div class="vocabulary-item">
+                        <img src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana meal" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Ng'akipi</p>
+                            <p class="english-word">Meat</p>
+                            <p class="pronunciation">ngah-KEE-pee</p>
+                        </div>
+                    </div>
+                    <div class="vocabulary-item">
+                        <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana drink" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Echuna</p>
+                            <p class="english-word">Milk</p>
+                            <p class="pronunciation">eh-CHOO-nah</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="financePage" class="content-page">
+                <div class="page-header">
+                    <button class="back-button" onclick="goBack()">←</button>
+                    <h2>Finance</h2>
+                </div>
+                <div class="vocabulary-list">
+                    <div class="vocabulary-item">
+                        <img src="https://images.unsplash.com/photo-1557200134-90327ee9fafa?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana market" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Chent</p>
+                            <p class="english-word">Money</p>
+                            <p class="pronunciation">chent</p>
+                        </div>
+                    </div>
+                    <div class="vocabulary-item">
+                        <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana elder" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Ache</p>
+                            <p class="english-word">Price</p>
+                            <p class="pronunciation">AH-cheh</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="phrasesPage" class="content-page">
+                <div class="page-header">
+                    <button class="back-button" onclick="goBack()">←</button>
+                    <h2>Useful Phrases</h2>
+                </div>
+                <div class="vocabulary-list">
+                    <div class="vocabulary-item">
+                        <img src="https://images.unsplash.com/photo-1580130732478-4d339bf5d39d?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana greeting" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Kaale noi?</p>
+                            <p class="english-word">How are you?</p>
+                            <p class="pronunciation">KAH-leh noy</p>
+                        </div>
+                    </div>
+                    <div class="vocabulary-item">
+                        <img src="https://images.unsplash.com/photo-1557200134-90327ee9fafa?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana people" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Eyo, kaale</p>
+                            <p class="english-word">I'm fine</p>
+                            <p class="pronunciation">EH-yoh, KAH-leh</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="timePage" class="content-page">
+                <div class="page-header">
+                    <button class="back-button" onclick="goBack()">←</button>
+                    <h2>Time</h2>
+                </div>
+                <div class="vocabulary-list">
+                    <div class="vocabulary-item">
+                        <img src="https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana man" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Ekaru</p>
+                            <p class="english-word">Day</p>
+                            <p class="pronunciation">eh-KAH-roo</p>
+                        </div>
+                    </div>
+                    <div class="vocabulary-item">
+                        <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana child" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Erotu</p>
+                            <p class="english-word">Night</p>
+                            <p class="pronunciation">eh-ROH-too</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="locationPage" class="content-page">
+                <div class="page-header">
+                    <button class="back-button" onclick="goBack()">←</button>
+                    <h2>Location</h2>
+                </div>
+                <div class="vocabulary-list">
+                    <div class="vocabulary-item">
+                        <img src="https://images.unsplash.com/photo-1580130732478-4d339bf5d39d?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana greeting" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Echuku</p>
+                            <p class="english-word">Here</p>
+                            <p class="pronunciation">eh-CHOO-koo</p>
+                        </div>
+                    </div>
+                    <div class="vocabulary-item">
+                        <img src="https://images.unsplash.com/photo-1557200134-90327ee9fafa?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana people" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Echuku noi</p>
+                            <p class="english-word">There</p>
+                            <p class="pronunciation">eh-CHOO-koo noy</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="classroomPage" class="content-page">
+                <div class="page-header">
+                    <button class="back-button" onclick="goBack()">←</button>
+                    <h2>Classroom</h2>
+                </div>
+                <div class="vocabulary-list">
+                    <div class="vocabulary-item">
+                        <img src="https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana school" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Ekaru ka ng'ikitoi</p>
+                            <p class="english-word">School</p>
+                            <p class="pronunciation">eh-KAH-roo kah ngee-KEE-toy</p>
+                        </div>
+                    </div>
+                    <div class="vocabulary-item">
+                        <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Turkana elder" class="vocabulary-image">
+                        <div class="vocabulary-text">
+                            <p class="turkana-word">Ekaru ka ng'ikitoi noi</p>
+                            <p class="english-word">Teacher</p>
+                            <p class="pronunciation">eh-KAH-roo kah ngee-KEE-toy noy</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="radioPage" class="content-page">
+                <div class="page-header">
+                    <button class="back-button" onclick="goBack()">←</button>
+                    <h2>Turkana Radio</h2>
+                </div>
+                <div class="radio-player">
+                    <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Turkana radio" style="width: 100%; border-radius: 10px; margin-bottom: 15px;">
+                    <h3>Listen to Turkana Radio</h3>
+                    <p>Tune in to hear Turkana language broadcasts, music, and news</p>
+                    <div class="radio-controls">
+                        <button class="radio-button" onclick="playRadio()">▶</button>
+                        <button class="radio-button" onclick="pauseRadio()">⏸</button>
+                        <button class="radio-button" onclick="stopRadio()">⏹</button>
+                    </div>
+                    <input type="range" class="volume-control" min="0" max="100" value="50" onchange="changeVolume(this.value)">
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2023 Learn Turkana App | Designed for cultural preservation</p>
+        </footer>
+    </div>
+
+    <script>
+        // Welcome message based on last visit
+        document.addEventListener('DOMContentLoaded', function() {
+            const welcomeOverlay = document.getElementById('welcomeOverlay');
+            const appContent = document.getElementById('appContent');
+            const welcomeMessage = document.getElementById('welcomeMessage');
+            const welcomeSubtext = document.getElementById('welcomeSubtext');
+            const startButton = document.getElementById('startButton');
+            
+            // Check last visit from localStorage
+            const lastVisit = localStorage.getItem('lastVisit');
+            const now = new Date().getTime();
+            
+            if (!lastVisit) {
+                // First time user
+                welcomeMessage.textContent = 'Welcome to Learn Turkana!';
+                welcomeSubtext.textContent = 'Start your journey to learn the beautiful Turkana language';
+            } else {
+                const daysSinceLastVisit = Math.floor((now - lastVisit) / (1000 * 60 * 60 * 24));
+                
+                if (daysSinceLastVisit < 1) {
+                    // Same day return
+                    welcomeMessage.textContent = 'Welcome Back!';
+                    welcomeSubtext.textContent = 'Continue your Turkana language learning journey';
+                } else if (daysSinceLastVisit < 7) {
+                    // Within a week
+                    welcomeMessage.textContent = 'Welcome Back Again!';
+                    welcomeSubtext.textContent = 'We missed you! Ready to learn more Turkana?';
+                } else {
+                    // Long time
+                    welcomeMessage.textContent = 'Welcome Back!';
+                    welcomeSubtext.textContent = `It's been a long time (${daysSinceLastVisit} days)! Let's continue learning Turkana`;
+                }
+            }
+            
+            // Store current visit
+            localStorage.setItem('lastVisit', now.toString());
+            
+            // Start button click handler
+            startButton.addEventListener('click', function() {
+                welcomeOverlay.style.display = 'none';
+                appContent.style.display = 'block';
+            });
+        });
+        
+        // Navigation functions
+        function showContent(page) {
+            document.getElementById('homePage').style.display = 'none';
+            document.getElementById(page + 'Page').style.display = 'block';
+        }
+        
+        function goBack() {
+            const contentPages = document.querySelectorAll('.content-page');
+            contentPages.forEach(page => {
+                page.style.display = 'none';
+            });
+            document.getElementById('homePage').style.display = 'block';
+        }
+        
+        // Radio player functions (simulated)
+        function playRadio() {
+            alert('Playing Turkana Radio (simulated)');
+        }
+        
+        function pauseRadio() {
+            alert('Pausing Turkana Radio (simulated)');
+        }
+        
+        function stopRadio() {
+            alert('Stopping Turkana Radio (simulated)');
+        }
+        
+        function changeVolume(level) {
+            console.log('Volume changed to: ' + level);
+        }
+    </script>
+</body>
+</html>
